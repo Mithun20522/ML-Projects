@@ -8,6 +8,7 @@ import streamlit as st
 nltk.download('punkt')
 
 st.title("Advanced News Article Summarizer")
+st.caption('© developed by Mithun Verma')
 
 projectAbout = '<span style="font-family:sans-serif; color:Blue; font-size:25px font-weight:20;">Here You can summarize any article by just entering URL</span>'
 st.markdown(projectAbout, unsafe_allow_html=True)
@@ -69,8 +70,6 @@ if(btn):
 
         else:
             st.error("Please Enter Valid URL")
-
-
 
 
 
