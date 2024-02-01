@@ -7,44 +7,72 @@ import streamlit as st
 
 # nltk.download('punkt')
 
-# url = 'https://www.livemint.com/politics/news/hemant-soren-news-jharkhand-news-hemant-soren-party-kalpana-soren-hemant-soren-wife-jharkhand-cm-hemant-soren-11706693857857.html'
-# # url = 'https://edition.cnn.com/2020/09/13/tech/microsoft-tiktok-bytedance/index.html'
-
-# article = Article(url)
-# article.download()
-# article.parse()
-
-# article.nlp()
-
-# title = article.title
-# authors = article.authors
-# publish_date = article.publish_date
-# summary = article.summary
-# keywords = article.keywords
-
-# print(f"Title: {title}")
-# print(f"Authors: {authors}")
-# print(f"Publication Date: {publish_date}")
-# print(f"Summary: {summary}")
-# print(f"Keywords: {keywords}")
-
-# analysis  = TextBlob(article.text)
-
-# sentiment_Score = analysis.polarity
-
-# print(analysis.polarity)
-# print(f'Sentiment: {"positive" if sentiment_Score > 0 else "negative" if sentiment_Score < 0 else "neutral"}')
-
-
-
 st.title("Advanced News Article Summarizer")
-st.text("Here You can summarize any article by just entering URL")
 
-# new_url = st.text_input("Paste the URL")
+projectAbout = '<span style="font-family:sans-serif; color:Blue; font-size:25px font-weight:20;">Here You can summarize any article by just entering URL</span>'
+st.markdown(projectAbout, unsafe_allow_html=True)
 
-# root = tk.Tk()
-# root.title("Advanced News Article Summarizer")
-# root.geometry('1200x600')
 
-# root.mainloop()
+
+url = st.text_input("Paste the URL of article")
+
+btn = st.button('Summarize')
+
+if(btn):
+    if(len(url) > 0):
+        article = Article(url)
+        if(article.is_valid_url()):
+            article.download()
+            article.parse() 
+            article.nlp()
+            title = article.title
+            authors = article.authors
+            publish_date = article.publish_date
+            summary = article.summary
+            keywords = article.keywords
+            analysis  = TextBlob(article.text)
+            sentiment_Score = analysis.polarity
+
+            st.header("Your Summary")
+            
+            st.subheader("Title: ")
+            titleContainer = st.container()
+            titleContainer.write(title)
+
+            
+            st.subheader("Publish Date: ")
+            st.text(publish_date)
+
+            st.subheader("Authors: ")
+            if(len(authors) > 0):
+                st.text(authors[0])
+            else:
+                st.text("Author name not given.")
+            
+            st.subheader("Summary of article: ")
+            container = st.container()
+            container.write(summary)
+
+            if(sentiment_Score > 0):
+                positive = '<span style="font-family:sans-serif; color:Green; font-size:15px font-weight:20;">POSITIVE</span>'
+                st.markdown(f"Sentiment of the article: {positive}", unsafe_allow_html=True)
+            elif(sentiment_Score < 0):
+                negative = '<span style="font-family:sans-serif; color:Red; font-size:15px font-weight:20 margin-top:0.5px;">NEGATIVE</span>'
+                st.markdown(f"Sentiment of the article: {negative}", unsafe_allow_html=True)
+            else:
+                neutral = '<span style="font-family:sans-serif; color:Orange; font-size:15px font-weight:20 margin-top:0.5px;">NEUTRAL</span>'
+                st.markdown(f"Sentiment of the article: {neutral}", unsafe_allow_html=True)
+
+            st.subheader("Keywords: ")
+            keyContainer = st.container()
+            keyContainer.write(keywords)
+
+        else:
+            st.error("Please Enter Valid URL")
+
+
+
+
+
+
 
