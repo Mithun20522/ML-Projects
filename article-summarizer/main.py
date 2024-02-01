@@ -5,7 +5,7 @@ from textblob import TextBlob
 from newspaper import Article
 import streamlit as st
 
-# nltk.download('punkt')
+nltk.download('punkt')
 
 st.title("Advanced News Article Summarizer")
 
