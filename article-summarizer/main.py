@@ -15,7 +15,19 @@ article.parse()
 
 article.nlp()
 
-print(f"Title: {article.title}")
-print(f"Authors: {article.authors}")
-print(f"Publication Date: {article.publish_date}")
-print(f"Summary: {article.summary}")
+title = article.title
+authors = article.authors
+publish_date = article.publish_date
+summary = article.summary
+
+print(f"Title: {title}")
+print(f"Authors: {authors}")
+print(f"Publication Date: {publish_date}")
+print(f"Summary: {summary}")
+
+analysis  = TextBlob(article.text)
+
+sentiment_Score = analysis.polarity
+
+print(analysis.polarity)
+print(f'Sentiment: {"positive" if sentiment_Score > 0 else "negative" if sentiment_Score < 0 else "neutral"}')
