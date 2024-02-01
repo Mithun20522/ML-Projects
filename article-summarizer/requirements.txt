@@ -1,5 +1,4 @@
-tkinter
-nltk
-textblob
-newspaper
-streamlit
+newspaper3k==0.2.8
+nltk==3.8.1
+streamlit==1.16.0
+textblob==0.17.1
